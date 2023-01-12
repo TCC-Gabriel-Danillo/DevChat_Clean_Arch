@@ -1,15 +1,15 @@
 import { Card, Container, Text } from "_/presentation/components";
-import { COLORS, APP_SCREENS, TEST_ID, ICONS } from "_/presentation/constants";
-import { useAuth, useMainNavigation } from "@ui/src/hooks";
+import { COLORS, TEST_ID, ICONS, MAIN_SCREENS } from "_/presentation/constants";
 import styles from "./styles"
 import { FlatList } from "react-native";
+import { useAuth, useMainNavigation } from "_/presentation/hooks";
 
 
 export function TechScreen() {
     const { user } = useAuth()
     const navigation = useMainNavigation()
 
-    const navigateToUsersScreen = (tech: string) => navigation.navigate(APP_SCREENS.Main.UsersScreen, { tech })
+    const navigateToUsersScreen = (tech: string) => navigation.navigate(MAIN_SCREENS.USERS_SCREEN, { tech })
 
     return (
         <Container>
