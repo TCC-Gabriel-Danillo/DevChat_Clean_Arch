@@ -1,9 +1,9 @@
 import { FlatList, TouchableOpacity, View } from "react-native"
 import { Container, Text, Loading, AddButton, UserCard, Badge, Empty } from '_/presentation/components'
-import { COLORS, ICONS, APP_SCREENS, TEST_ID } from '_/presentation/constants'
-import { useAuth, useConversation, useMainNavigation } from '@ui/src/hooks'
+import { COLORS, ICONS, MAIN_SCREENS, TEST_ID } from '_/presentation/constants'
 import { styles } from './styles'
 import { Conversation, User } from "_/domain/models"
+import { useAuth, useConversation, useMainNavigation } from "_/presentation/hooks"
 
 export function HomeScreen() {
     const { conversations, isLoadingConversations } = useConversation()
@@ -13,11 +13,11 @@ export function HomeScreen() {
     if (isLoadingConversations) return <Loading />
 
     const goToTechScreen = () => {
-        navigation.navigate(APP_SCREENS.Main.TechScreen);
+        navigation.navigate(MAIN_SCREENS.TECH_SCREEN);
     }
 
     const goToMessageScreen = (conversation: Conversation, participant: User) => {
-        navigation.navigate(APP_SCREENS.Main.MessageScreen, {
+        navigation.navigate(MAIN_SCREENS.MESSAGE_SCREEN, {
             conversation,
             participant
         })
