@@ -1,10 +1,10 @@
 import { useRef, useCallback } from "react"
 import { FlatList, ViewToken } from "react-native"
-import { useAuth, useMessages } from "@ui/src/hooks"
 import { MessageBallon, Loading, Container, MessageInput } from "_/presentation/components"
 import { Message } from "_/domain/models"
 import { parseDate } from "_/presentation/utils"
 import styles from "./styles"
+import { useAuth, useMessages } from "_/presentation/hooks"
 
 
 
