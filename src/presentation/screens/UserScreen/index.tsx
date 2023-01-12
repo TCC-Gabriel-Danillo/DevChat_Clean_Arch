@@ -1,12 +1,11 @@
 import { Text, Loading, Empty, UserCard, Container } from "_/presentation/components"
-import { APP_SCREENS, TEST_ID } from "_/presentation/constants";
+import {  MAIN_SCREENS, TEST_ID } from "_/presentation/constants";
 import { useEffect } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { parseArrayToString } from "_/presentation/utils";
 import styles from "./styles"
-import { useUsers } from "@ui/src/hooks/useUsers";
-import { useAuth, useConversation, useMainNavigation, useMainRoute } from "@ui/src/hooks";
 import { Conversation, User } from "_/domain/models";
+import { useAuth, useConversation, useMainNavigation, useMainRoute } from "_/presentation/hooks";
 
 export function UsersScreen() {
     const { users, getUsersByTech, isLoadingUsers } = useUsers()
@@ -67,7 +66,7 @@ export function UsersScreen() {
 
 
     const goToMessageScreen = (conversation: Conversation, participant: User) => {
-        navigation.navigate(APP_SCREENS.Main.MessageScreen, {
+        navigation.navigate(MAIN_SCREENS.MESSAGE_SCREEN, {
             conversation,
             participant
         })
@@ -89,4 +88,8 @@ export function UsersScreen() {
             }
         </Container>
     )
+}
+
+function useUsers(): { users: any; getUsersByTech: any; isLoadingUsers: any; } {
+    throw new Error("Function not implemented.");
 }
