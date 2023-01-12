@@ -5,7 +5,7 @@ import { FlatList, TouchableOpacity } from "react-native";
 import { parseArrayToString } from "_/presentation/utils";
 import styles from "./styles"
 import { Conversation, User } from "_/domain/models";
-import { useAuth, useConversation, useMainNavigation, useMainRoute } from "_/presentation/hooks";
+import { useAuth, useConversation, useMainNavigation, useMainRoute, useUsers } from "_/presentation/hooks";
 
 export function UsersScreen() {
     const { users, getUsersByTech, isLoadingUsers } = useUsers()
@@ -90,6 +90,3 @@ export function UsersScreen() {
     )
 }
 
-function useUsers(): { users: any; getUsersByTech: any; isLoadingUsers: any; } {
-    throw new Error("Function not implemented.");
-}
