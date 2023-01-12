@@ -1,11 +1,10 @@
-export const APP_SCREENS = {
-    Auth: {
-        AushScreen: "AUTH_SCREEN"
-    }, 
-    Main: {
-        HomeScreen: "HOME_SCREEN",
-        MessageScreen: "MESSAGE_SCREEN", 
-        TechScreen: "TECH_SCREEN", 
-        UsersScreen: "USERS_SCREEN"
-    }
+export enum MAIN_SCREENS {
+    HOME_SCREEN = "HOME_SCREEN",
+    MESSAGE_SCREEN = "MESSAGE_SCREEN",
+    TECH_SCREEN = "TECH_SCREEN",
+    USERS_SCREEN = "USERS_SCREEN"
+}
+
+export enum AUTH_SCREENS {
+    AUTH_SCREEN="AUTH_SCREEN"
 }
