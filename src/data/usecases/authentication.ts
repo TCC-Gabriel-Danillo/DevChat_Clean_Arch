@@ -5,7 +5,7 @@ import { DatabaseRepository } from "_/data/protocols/repositories/databaseReposi
 import { User } from "_/domain/models";
 import { AuthUseCase, Credentials } from "_/domain/usecases/authentication";
 
-export class Authentication implements AuthUseCase {
+export class AuthenticationService implements AuthUseCase {
   constructor(
         private readonly gitAuthHttp: HttpClient,
         private readonly gitApiHttp: HttpClient,
