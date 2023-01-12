@@ -2,7 +2,7 @@ import "./config/firebase"
 
 import { View } from "react-native"
 import { useCustomFonts } from "_/presentation/hooks"
-import { AuthProviderComposer } from "./composes"
+import { AlertProviderComposer, AuthProviderComposer } from "./composes"
 import { Navigation } from "./navigation"
 
 export const Main = () => {
@@ -11,8 +11,10 @@ export const Main = () => {
     if(!isLoaded) return <View />
 
     return (
-        <AuthProviderComposer>
-            <Navigation />
-        </AuthProviderComposer>
+        <AlertProviderComposer>
+            <AuthProviderComposer>
+                <Navigation />
+            </AuthProviderComposer>
+        </AlertProviderComposer>
     )
 }
