@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
 import { Conversation, User } from '_/domain/models'
 import { ConversationUseCase } from '_/domain/usecases/conversation'
-import { useAuth } from '../hooks'
+import { useAuth } from '../hooks/useAuth'
 import { generateRandomId } from '../utils'
 
 

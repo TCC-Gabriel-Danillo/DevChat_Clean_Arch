@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect } from "react"
 import { Conversation, Message } from "_/domain/models";
 import { MessageUseCase } from "_/domain/usecases/message";
-import { useAuth } from "../hooks";
-
+import { useAuth } from "../hooks/useAuth";
 import { useConversation } from "../hooks/useConversation";
 import { generateRandomId } from "../utils";
 

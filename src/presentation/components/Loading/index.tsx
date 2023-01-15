@@ -1,7 +1,7 @@
 import { Image } from 'react-native'
 import { Container } from "../Container"
 import { Text } from "../Text"
-import loadingImg from "@ui/assets/loading.png"
+import loadingImg from "_/presentation/assets/loading.png"
 
 import styles from './styles'
 

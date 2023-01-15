@@ -1,6 +1,7 @@
 import { createContext, useCallback, useState } from 'react'
 import { STORAGE_KEYS } from '../constants';
-import { AuthPromptService, useAlert } from '../hooks';
+import { AuthPromptService } from '../hooks/useAuthPrompt';
+import {  useAlert } from '../hooks/useAlert';
 import { LocalStorage } from '_/data/protocols/cache/localStorage';
 import { AuthUseCase } from '_/domain/usecases/authentication';
 import { User } from '_/domain/models';

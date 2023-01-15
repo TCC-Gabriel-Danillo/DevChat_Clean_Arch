@@ -1,6 +1,6 @@
 import { Image } from 'react-native'
 import { Button, Container, Text } from "_/presentation/components"
-import chatImg from '@ui/assets/chat.png'
+import chatImg from '_/presentation/assets/chat.png'
 import { styles } from './styles';
 import { TEST_ID, COLORS, ICONS } from '_/presentation/constants';
 import { useAuth } from '_/presentation/hooks';

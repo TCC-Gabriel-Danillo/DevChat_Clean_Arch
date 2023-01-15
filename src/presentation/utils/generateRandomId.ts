@@ -1,3 +1,3 @@
-import crypto from "crypto"
+import { uuidv4 } from "@firebase/util";
 
-export const generateRandomId = () => crypto.randomUUID()
+export const generateRandomId = () => uuidv4()
