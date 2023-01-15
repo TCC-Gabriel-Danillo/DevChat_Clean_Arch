@@ -1,5 +1,6 @@
 # DevChat: Portas e Adaptadores
 
+[![codecov](https://codecov.io/gh/TCC-Gabriel-Danillo/DevChat_Clean_Arch/branch/main/graph/badge.svg?token=9WaxjV7ZFx)](https://codecov.io/gh/TCC-Gabriel-Danillo/DevChat_Clean_Arch)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=TCC-Gabriel-Danillo_DevChat_Clean_Arch&metric=bugs)](https://sonarcloud.io/summary/new_code?id=TCC-Gabriel-Danillo_DevChat_Clean_Arch)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=TCC-Gabriel-Danillo_DevChat_Clean_Arch&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=TCC-Gabriel-Danillo_DevChat_Clean_Arch)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=TCC-Gabriel-Danillo_DevChat_Clean_Arch&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=TCC-Gabriel-Danillo_DevChat_Clean_Arch)
