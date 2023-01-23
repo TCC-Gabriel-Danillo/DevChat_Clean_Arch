@@ -1,6 +1,4 @@
 
-import { HttpClient } from "_/data/protocols/http/httpClient"
-import { DatabaseRepository } from "_/data/protocols/repositories/databaseRepository"
 import { AuthenticationService } from "_/data/usecases/authentication"
 import { AuthUseCase } from "_/domain/usecases/authentication"
 import { AxiosHttpClient } from "_/infra/http/axiosHttpClient"
