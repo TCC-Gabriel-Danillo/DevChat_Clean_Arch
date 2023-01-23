@@ -1,9 +1,26 @@
 
+import { HttpClient } from "_/data/protocols/http/httpClient"
+import { DatabaseRepository } from "_/data/protocols/repositories/databaseRepository"
 import { AuthenticationService } from "_/data/usecases/authentication"
+import { AuthUseCase } from "_/domain/usecases/authentication"
 import { AxiosHttpClient } from "_/infra/http/axiosHttpClient"
 import { GITHUB_URL } from "_/presentation/constants"
 import * as gitMock from "../../mocks/http/github"
 import { DatabaseRepositoryStub } from "../../mocks/stubs"
+
+
+type SutTypes = {
+    authService: AuthUseCase
+} 
+
+const makeSut = (): SutTypes  => {
+    const gitApiHttp = new AxiosHttpClient(GITHUB_URL.API_BASE_URL)
+    const gitAuthHttp = new AxiosHttpClient(GITHUB_URL.AUTH_BASE_URL)
+    const userDbRepositoryStub = new DatabaseRepositoryStub()
+    const authService = new AuthenticationService(gitAuthHttp, gitApiHttp, userDbRepositoryStub)
+
+    return { authService }
+}
 
 describe('authService', () => {
 
@@ -14,10 +31,8 @@ describe('authService', () => {
     })
 
     it("should return a user", async () => {
-        const gitApiHttp = new AxiosHttpClient(GITHUB_URL.API_BASE_URL)
-        const gitAuthHttp = new AxiosHttpClient(GITHUB_URL.AUTH_BASE_URL)
-        const userDbRepository = new DatabaseRepositoryStub()
-        const authService = new AuthenticationService(gitAuthHttp, gitApiHttp, userDbRepository)
+
+        const { authService } = makeSut()
 
         const credentials = {
             code: "any_code",
@@ -36,10 +51,8 @@ describe('authService', () => {
 
     it("should return empty if auth token request returns empty", async () => {
         gitMock.mockAuthTokenRequestEmpty()
-        const gitApiHttp = new AxiosHttpClient(GITHUB_URL.API_BASE_URL)
-        const gitAuthHttp = new AxiosHttpClient(GITHUB_URL.AUTH_BASE_URL)
-        const userDbRepository = new DatabaseRepositoryStub()
-        const authService = new AuthenticationService(gitAuthHttp, gitApiHttp, userDbRepository)
+
+        const { authService } = makeSut()
 
         const credentials = {
             code: "any_code",
@@ -56,10 +69,7 @@ describe('authService', () => {
         gitMock.mockAuthTokenRequest()
         gitMock.mockUserRequest()
 
-        const gitApiHttp = new AxiosHttpClient(GITHUB_URL.API_BASE_URL)
-        const gitAuthHttp = new AxiosHttpClient(GITHUB_URL.AUTH_BASE_URL)
-        const userDbRepository = new DatabaseRepositoryStub()
-        const authService = new AuthenticationService(gitAuthHttp, gitApiHttp, userDbRepository)
+        const { authService } = makeSut()
 
         const credentials = {
             code: "any_code",
@@ -76,11 +86,7 @@ describe('authService', () => {
         gitMock.mockAuthTokenRequest()
         gitMock.mockUserRequest()
         
-        const gitApiHttp = new AxiosHttpClient(GITHUB_URL.API_BASE_URL)
-        const gitAuthHttp = new AxiosHttpClient(GITHUB_URL.AUTH_BASE_URL)
-        const userDbRepository = new DatabaseRepositoryStub()
-        const authService = new AuthenticationService(gitAuthHttp, gitApiHttp, userDbRepository)
-
+        const { authService } = makeSut()
 
         const credentials = {
             code: "any_code",
