@@ -1,7 +1,7 @@
 import { Timestamp } from "@firebase/firestore";
 import { Conversation, User } from "_/domain/models";
 
-export interface FirebaseConversationDTO {
+export interface DatabaseConversationDTO {
     id: string
     unreadNumber: number
     users: string[]
@@ -11,22 +11,22 @@ export interface FirebaseConversationDTO {
     lastSenderId: string
 }
 
-export const mapFirebaseConversationToConversation = (
-    firebaseConversation: FirebaseConversationDTO,
+export const mapDatabaseConversationToConversation = (
+    databaseConversation: DatabaseConversationDTO,
     users: User[]
 ): Conversation => {
     return {
-        id: firebaseConversation.id,
-        unreadNumber: firebaseConversation.unreadNumber,
+        id: databaseConversation.id,
+        unreadNumber: databaseConversation.unreadNumber,
         users,
-        createdAt: firebaseConversation.createdAt.toDate(),
-        updatedAt: firebaseConversation.updatedAt.toDate(),
-        tech: firebaseConversation.tech,
-        lastSenderId: firebaseConversation.lastSenderId
+        createdAt: databaseConversation.createdAt.toDate(),
+        updatedAt: databaseConversation.updatedAt.toDate(),
+        tech: databaseConversation.tech,
+        lastSenderId: databaseConversation.lastSenderId
     }
 }
 
-export const mapConversationToFirebaseConversation = (conversation: Conversation): FirebaseConversationDTO => {
+export const mapConversationToDatabaseConversation = (conversation: Conversation): DatabaseConversationDTO => {
     return {
         id: conversation.id,
         tech: conversation.tech,

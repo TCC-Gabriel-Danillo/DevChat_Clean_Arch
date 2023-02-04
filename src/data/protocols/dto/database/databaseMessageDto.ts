@@ -1,7 +1,7 @@
 import { Timestamp } from "@firebase/firestore";
 import { Message, User } from "_/domain/models";
 
-export interface FirebaseMessageDTO {
+export interface DatabaseMessageDTO {
     id: string
     message: string 
     read: boolean
@@ -9,17 +9,17 @@ export interface FirebaseMessageDTO {
     createdAt: Timestamp
 }
 
-export const mapFirebaseMessageToMessage = (fMessage: FirebaseMessageDTO, user: User): Message => {
+export const mapDatabaseMessageToMessage = (databaseMessage: DatabaseMessageDTO, user: User): Message => {
     return {
-        createdAt: fMessage.createdAt.toDate(), 
-        id: fMessage.id, 
-        message: fMessage.message, 
-        read: fMessage.read, 
+        createdAt: databaseMessage.createdAt.toDate(), 
+        id: databaseMessage.id, 
+        message: databaseMessage.message, 
+        read: databaseMessage.read, 
         sender: user
     }
 }
 
-export const mapMessageToFirebaseMessage = (message: Message): FirebaseMessageDTO  => {
+export const mapMessageToDatabaseMessage = (message: Message): DatabaseMessageDTO  => {
     return {
         id: message.id, 
         createdAt: Timestamp.fromDate(message.createdAt), 
