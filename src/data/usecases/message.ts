@@ -1,6 +1,6 @@
 import { Message, User } from "_/domain/models";
 import { MessageUseCase } from "_/domain/usecases/message";
-import { FirebaseMessageDTO, FirebaseUserDto, mapFirebaseMessageToMessage, mapFirebaseToUser, mapMessageToFirebaseMessage } from "../protocols/dto/firebase";
+import { DatabaseMessageDTO, DatabaseUserDto, mapDatabaseMessageToMessage, mapDatabaseUserToUser, mapMessageToDatabaseMessage } from "../protocols/dto/database";
 import { DatabaseRepository } from "../protocols/repositories/databaseRepository";
 import { ORDER } from "../protocols/repositories/options";
 import { RealtimeDatabaseRepository, VoidCallback } from "../protocols/repositories/realtimeDatabaseRepository";
@@ -13,13 +13,13 @@ export class MessageService implements MessageUseCase {
     ) { }
 
     async sendMessage(message: Message): Promise<void> {
-        const fMessage = mapMessageToFirebaseMessage(message)
-        await this.messageDatabaseRepository.createOrReplace(fMessage, fMessage.id)
+        const databaseMessage = mapMessageToDatabaseMessage(message)
+        await this.messageDatabaseRepository.createOrReplace(databaseMessage, databaseMessage.id)
     }
 
     async updateMessage(message: Message): Promise<void> {
-        const fMessage = mapMessageToFirebaseMessage(message)
-        await this.messageDatabaseRepository.update(fMessage, fMessage.id);
+        const databaseMessage = mapMessageToDatabaseMessage(message)
+        await this.messageDatabaseRepository.update(databaseMessage, databaseMessage.id);
     }
 
     listenMessages(cb: VoidCallback<Message>): void {
@@ -29,8 +29,8 @@ export class MessageService implements MessageUseCase {
         }
 
         const args = { orderArgs }
-        this.messageRealtimeDatabaseRepository.watch<FirebaseMessageDTO>(async (fMessages) => {
-            const messages = await Promise.all(fMessages.map((fMessage) => this.parseMessage(fMessage)))
+        this.messageRealtimeDatabaseRepository.watch<DatabaseMessageDTO>(async (databaseMessages) => {
+            const messages = await Promise.all(databaseMessages.map((databaseMessage) => this.parseMessage(databaseMessage)))
             cb(messages)
         }, args)
     }
@@ -38,14 +38,14 @@ export class MessageService implements MessageUseCase {
         this.messageRealtimeDatabaseRepository.unwatch()
     }
 
-    private async parseMessage(fMessage: FirebaseMessageDTO): Promise<Message> {
-        const user = await this.getUserFromMessage(fMessage.senderId);
-        return mapFirebaseMessageToMessage(fMessage, user);
+    private async parseMessage(databaseMessage: DatabaseMessageDTO): Promise<Message> {
+        const user = await this.getUserFromMessage(databaseMessage.senderId);
+        return mapDatabaseMessageToMessage(databaseMessage, user);
     }
 
     private async getUserFromMessage(userId: string): Promise<User> {
-        const fUser = await this.userDatabaseRepository.getOneById<FirebaseUserDto>(userId);
-        return mapFirebaseToUser(fUser)
+        const databaseUser = await this.userDatabaseRepository.getOneById<DatabaseUserDto>(userId);
+        return mapDatabaseUserToUser(databaseUser)
     }
 
 }

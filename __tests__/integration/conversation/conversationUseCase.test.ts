@@ -1,5 +1,5 @@
 
-import { mapConversationToFirebaseConversation } from "_/data/protocols/dto/firebase";
+import { mapConversationToDatabaseConversation } from "_/data/protocols/dto/database";
 import { DatabaseRepository } from "_/data/protocols/repositories/databaseRepository";
 import { RealtimeDatabaseRepository } from "_/data/protocols/repositories/realtimeDatabaseRepository";
 import { ConversationService } from "_/data/usecases/conversation";
@@ -47,14 +47,14 @@ describe("conversationService", () => {
         const { conversationService, conversationDatabaseRepositoryStub } = makeSut()
         const spy = jest.spyOn(conversationDatabaseRepositoryStub, "update")
         await conversationService.updateConversationById(mockedConversation)
-        expect(spy).toHaveBeenCalledWith(mapConversationToFirebaseConversation(mockedConversation), mockedConversation.id)
+        expect(spy).toHaveBeenCalledWith(mapConversationToDatabaseConversation(mockedConversation), mockedConversation.id)
     })
 
     it("should call create with the right parameters", async () => {
         const { conversationService, conversationDatabaseRepositoryStub } = makeSut()
         const spy = jest.spyOn(conversationDatabaseRepositoryStub, "createOrReplace")
         await conversationService.createConversation(mockedConversation)
-        expect(spy).toHaveBeenCalledWith(mapConversationToFirebaseConversation(mockedConversation), mockedConversation.id)
+        expect(spy).toHaveBeenCalledWith(mapConversationToDatabaseConversation(mockedConversation), mockedConversation.id)
     })
 
     it("should call delete with the right parameters", async () => {

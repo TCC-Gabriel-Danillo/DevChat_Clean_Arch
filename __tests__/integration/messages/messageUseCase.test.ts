@@ -1,5 +1,5 @@
 
-import { mapMessageToFirebaseMessage } from "_/data/protocols/dto/firebase";
+import { mapMessageToDatabaseMessage } from "_/data/protocols/dto/database";
 import { DatabaseRepository } from "_/data/protocols/repositories/databaseRepository";
 import { RealtimeDatabaseRepository } from "_/data/protocols/repositories/realtimeDatabaseRepository";
 import { MessageService } from "_/data/usecases/message";
@@ -46,14 +46,14 @@ describe("messageService", () => {
         const { messageService, messageDatabaseRepositoryStub } = makeSut()
         const spy = jest.spyOn(messageDatabaseRepositoryStub, "update")
         await messageService.updateMessage(mockedMessage)
-        expect(spy).toHaveBeenCalledWith(mapMessageToFirebaseMessage(mockedMessage), mockedMessage.id)
+        expect(spy).toHaveBeenCalledWith(mapMessageToDatabaseMessage(mockedMessage), mockedMessage.id)
     })
 
     it("should call create with the right parameters", async () => {
         const { messageService, messageDatabaseRepositoryStub } = makeSut()
         const spy = jest.spyOn(messageDatabaseRepositoryStub, "createOrReplace")
         await messageService.sendMessage(mockedMessage)
-        expect(spy).toHaveBeenCalledWith(mapMessageToFirebaseMessage(mockedMessage), mockedMessage.id)
+        expect(spy).toHaveBeenCalledWith(mapMessageToDatabaseMessage(mockedMessage), mockedMessage.id)
     })
 
     it("should trigger for callback when listening for messages", async () => {

@@ -1,4 +1,4 @@
-import { mapUserToFirebaseUser } from "_/data/protocols/dto/firebase";
+import { mapUserToDatabaseUser } from "_/data/protocols/dto/database";
 import { GitRepository, GitTokenDto, GitUser, mapGitUserToUser } from "_/data/protocols/dto/git";
 import { HttpClient } from "_/data/protocols/http/httpClient";
 import { DatabaseRepository } from "_/data/protocols/repositories/databaseRepository";
@@ -65,8 +65,8 @@ export class AuthenticationService implements AuthUseCase {
     }
 
     async createUserIfNotExists(user: User) {
-        const firebaseUser = mapUserToFirebaseUser(user);
-        await this.userDatabaseRepository.createOrReplace(firebaseUser, firebaseUser.id)
+        const databaseUser = mapUserToDatabaseUser(user);
+        await this.userDatabaseRepository.createOrReplace(databaseUser, databaseUser.id)
     }
     
 }
