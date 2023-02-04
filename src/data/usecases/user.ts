@@ -1,6 +1,6 @@
 import { User } from "_/domain/models";
 import { UsersUseCase } from "_/domain/usecases/users";
-import { FirebaseUserDto, mapFirebaseToUser } from "../protocols/dto/firebase";
+import { DatabaseUserDto, mapDatabaseUserToUser } from "../protocols/dto/database";
 import { DatabaseRepository } from "../protocols/repositories/databaseRepository";
 import { OP } from "../protocols/repositories/options";
 
@@ -15,7 +15,7 @@ export class UserService implements UsersUseCase {
             op: OP.CONTAINS, 
             value: tech
         }
-        const fUsers  = await this.userDatabaseRepository.getAll<FirebaseUserDto>({ filterArgs })
-        return fUsers.map(fUser => mapFirebaseToUser(fUser)); 
+        const databaseUsers  = await this.userDatabaseRepository.getAll<DatabaseUserDto>({ filterArgs })
+        return databaseUsers.map(databaseUser => mapDatabaseUserToUser(databaseUser)); 
     }
 }

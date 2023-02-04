@@ -1,6 +1,6 @@
 import { Conversation, User } from "_/domain/models";
 import { ConversationUseCase } from "_/domain/usecases/conversation";
-import { FirebaseConversationDTO, FirebaseUserDto, mapConversationToFirebaseConversation, mapFirebaseConversationToConversation, mapFirebaseToUser } from "../protocols/dto/firebase";
+import { DatabaseConversationDTO, DatabaseUserDto, mapConversationToDatabaseConversation, mapDatabaseConversationToConversation, mapDatabaseUserToUser } from "../protocols/dto/database";
 import { DatabaseRepository } from "../protocols/repositories/databaseRepository";
 import { OP, ORDER } from "../protocols/repositories/options";
 import { RealtimeDatabaseRepository, VoidCallback } from "../protocols/repositories/realtimeDatabaseRepository";
@@ -13,12 +13,12 @@ export class ConversationService implements ConversationUseCase {
     ) { }
 
     async updateConversationById(conversation: Conversation): Promise<void> {
-        const fConversation = mapConversationToFirebaseConversation(conversation);
+        const fConversation = mapConversationToDatabaseConversation(conversation);
         await this.conversationDatabaseRepository.update(fConversation, fConversation.id)
     }
 
     async createConversation(conversation: Conversation): Promise<void> {
-        const fConversation = mapConversationToFirebaseConversation(conversation);
+        const fConversation = mapConversationToDatabaseConversation(conversation);
         await this.conversationDatabaseRepository.createOrReplace(fConversation, fConversation.id)
     }
 
@@ -40,7 +40,7 @@ export class ConversationService implements ConversationUseCase {
 
         const args = { filterArgs, orderArgs }
 
-        this.conversationRealtimeDatabaseRepository.watch<FirebaseConversationDTO>(async (fConversations) => {
+        this.conversationRealtimeDatabaseRepository.watch<DatabaseConversationDTO>(async (fConversations) => {
             const conversations = await Promise.all(fConversations.map((fconversation) => this.parseConversation(fconversation)))
             cb(conversations)
         }, args)
@@ -51,9 +51,9 @@ export class ConversationService implements ConversationUseCase {
         this.conversationRealtimeDatabaseRepository.unwatch()
     }
 
-    private async parseConversation(fconversation: FirebaseConversationDTO): Promise<Conversation> {
+    private async parseConversation(fconversation: DatabaseConversationDTO): Promise<Conversation> {
         const users = await this.getUsersFromConversation(fconversation.users);
-        return mapFirebaseConversationToConversation(fconversation, users);
+        return mapDatabaseConversationToConversation(fconversation, users);
     }
 
     private async getUsersFromConversation(userIds: Array<string>): Promise<Array<User>> {
@@ -63,8 +63,8 @@ export class ConversationService implements ConversationUseCase {
             value: userIds
         }
         const args = { filterArgs }
-        const firebaseUsers = await this.userDatabaseRepository.getAll<FirebaseUserDto>(args);
-        return firebaseUsers.map(fUser => mapFirebaseToUser(fUser));
+        const databaseUsers = await this.userDatabaseRepository.getAll<DatabaseUserDto>(args);
+        return databaseUsers.map(databaseUser => mapDatabaseUserToUser(databaseUser));
     }
 
 }
