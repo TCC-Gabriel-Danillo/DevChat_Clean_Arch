@@ -2,7 +2,8 @@ import { MessageService } from "_/data/usecases/message";
 import { Conversation } from "_/domain/models";
 import { MessageUseCase } from "_/domain/usecases/message";
 import { FirebaseDatabaseRepository, FirebaseRealtimeDatabaseRepository } from "_/infra/repositories";
-import { FIREBASE_COLLECTION } from "_/presentation/constants";
+import { MongoDatabaseRepository } from "_/infra/repositories/mongoDatabaseRepository";
+import { FIREBASE_COLLECTION, MONGO_COLLECTION } from "_/presentation/constants";
 
 export const makeMessageService = (conversation: Conversation): MessageUseCase => {
     const messageDatabaseRepository = new FirebaseDatabaseRepository(
@@ -15,7 +16,7 @@ export const makeMessageService = (conversation: Conversation): MessageUseCase =
         conversation.id,
         FIREBASE_COLLECTION.MESSAGES
     )
-    const userDatabaseRepository = new FirebaseDatabaseRepository(FIREBASE_COLLECTION.USERS);
+    const userDatabaseRepository = new MongoDatabaseRepository(MONGO_COLLECTION.USERS);
 
     return new MessageService(
         messageDatabaseRepository,

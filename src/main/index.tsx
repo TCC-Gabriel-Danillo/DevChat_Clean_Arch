@@ -1,4 +1,5 @@
 import "./config/firebase"
+import "./config/mongo"
 
 import { View } from "react-native"
 import { useCustomFonts } from "_/presentation/hooks"

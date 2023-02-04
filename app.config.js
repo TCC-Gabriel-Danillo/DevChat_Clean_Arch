@@ -45,7 +45,8 @@ export default {
       "firebase_messaging_sender_id": process.env.FIREBASE_MESSAGING_SENDER_ID,
       "firebase_app_id": process.env.FIREBASE_APP_ID,
       "firebase_measurement_id": process.env.FIREBASE_MEASUREMENT_ID,
-      "app_scheme": process.env.APP_SCHEME
+      "app_scheme": process.env.APP_SCHEME,
+      "mongo_database_url": process.env.MONGO_DATABASE_URI
     }
   }
 }

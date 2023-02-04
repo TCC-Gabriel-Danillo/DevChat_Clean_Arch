@@ -3,3 +3,7 @@ export enum FIREBASE_COLLECTION  {
     CONVERSATIONS = "DevChat_Conversations", 
     MESSAGES = "DevChat_Messages"
 }
+
+export enum MONGO_COLLECTION {
+    USERS = "users"
+}

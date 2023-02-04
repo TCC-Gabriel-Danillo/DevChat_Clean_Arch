@@ -19,3 +19,6 @@ export const FIREBASE_MEASUREMENT_ID = Constants?.manifest?.extra?.firebase_meas
 
 // APP 
 export const APP_SCHEME = Constants?.manifest?.extra?.app_scheme;
+
+// MONGO
+export const MONGO_DATABASE_URI = Constants?.manifest?.extra?.mongo_database_uri
