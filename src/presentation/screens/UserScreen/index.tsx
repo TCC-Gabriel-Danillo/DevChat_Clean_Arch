@@ -1,6 +1,5 @@
 import { Text, Loading, Empty, UserCard, Container } from "_/presentation/components"
 import {  MAIN_SCREENS, TEST_ID } from "_/presentation/constants";
-import { useEffect } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { parseArrayToString } from "_/presentation/utils";
 import styles from "./styles"
@@ -8,16 +7,11 @@ import { Conversation, User } from "_/domain/models";
 import { useAuth, useConversation, useMainNavigation, useMainRoute, useUsers } from "_/presentation/hooks";
 
 export function UsersScreen() {
-    const { users, getUsersByTech, isLoadingUsers } = useUsers()
+    const { users, isLoadingUsers } = useUsers()
     const { params } = useMainRoute<MAIN_SCREENS.USERS_SCREEN>()
     const navigation = useMainNavigation()
     const { conversations, createNewConversation } = useConversation()
     const { user: authenticatedUsed } = useAuth()
-
-    useEffect(() => {
-        getUsersByTech(params.tech)
-    }, [])
-
 
     const renderUserList = () => {
         return (
