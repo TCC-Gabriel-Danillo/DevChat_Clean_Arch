@@ -26,9 +26,9 @@ export function MainNavigation() {
                     name={MAIN_SCREENS.USERS_SCREEN}
                     options={{ title: "Usuários" }}
                 >
-                    {() => {
+                    {({ route }) => {
                         return (
-                            <UsersProviderComposer>
+                            <UsersProviderComposer tech={route.params.tech}>
                                 <UsersScreen />
                             </UsersProviderComposer>
                         )
