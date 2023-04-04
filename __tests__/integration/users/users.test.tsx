@@ -6,6 +6,9 @@ import { AuthContext, ConversationContextProvider, UsersContextProvider } from "
 import { UsersScreen } from "_/presentation/screens";
 import { mockedConversation, mockedLoggedUser, mockedParticipant } from "../../mocks/models";
 import { ConversationServiceStub, UserServiceStub } from "../../mocks/stubs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const client = new QueryClient()
 
 const mockedNavigate = jest.fn()
 jest.mock('_/presentation/hooks/useMainNavigation', () => ({
@@ -22,6 +25,7 @@ jest.mock('_/presentation/hooks/useMainRoute', () => ({
     })
 }));
 
+
 jest.setTimeout(70000)
 
 const conversationServiceStub = new ConversationServiceStub()
@@ -29,24 +33,27 @@ const userServiceStub = new UserServiceStub()
 
 const renderComponent = () => {
     return (
-        <AuthContext.Provider value={{
-            isAuthenticated: true,
-            isAuthenticating: false,
-            loginWithGithub: jest.fn(),
-            logout: jest.fn(),
-            user: mockedLoggedUser
-        }}>
-            <ConversationContextProvider
-                conversationService={conversationServiceStub}
-            >
-                <UsersContextProvider
-                    usersService={userServiceStub}
+        <QueryClientProvider client={client}>
+            <AuthContext.Provider value={{
+                isAuthenticated: true,
+                isAuthenticating: false,
+                loginWithGithub: jest.fn(),
+                logout: jest.fn(),
+                user: mockedLoggedUser
+            }}>
+                <ConversationContextProvider
+                    conversationService={conversationServiceStub}
                 >
-                    <UsersScreen />
-                </UsersContextProvider>
+                    <UsersContextProvider
+                        usersService={userServiceStub}
+                        tech="any_tech"
+                    >
+                        <UsersScreen />
+                    </UsersContextProvider>
 
-            </ConversationContextProvider>
-        </AuthContext.Provider>
+                </ConversationContextProvider>
+            </AuthContext.Provider>
+        </QueryClientProvider>
     )
 }
 

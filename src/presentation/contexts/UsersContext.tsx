@@ -14,6 +14,7 @@ interface Props {
 interface UsersContextData {
     users: User[]
     isLoadingUsers: boolean
+    tech: string
 }
 
 export const UsersContext = createContext<UsersContextData>({} as UsersContextData)
@@ -31,7 +32,7 @@ export function UsersContextProvider({ children, usersService, tech }: Props){
     const usersWithoutLoggedUser = useMemo(() => users.filter(_user => _user.id !== user?.id), [user, users])
 
     return(
-        <UsersContext.Provider value={{ users: usersWithoutLoggedUser, isLoadingUsers }}>
+        <UsersContext.Provider value={{ users: usersWithoutLoggedUser, isLoadingUsers, tech }}>
             {children}
         </UsersContext.Provider>
     )
