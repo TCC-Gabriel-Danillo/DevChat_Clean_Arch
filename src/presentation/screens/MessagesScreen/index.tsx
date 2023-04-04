@@ -34,7 +34,7 @@ export function MessagesScreen() {
                 viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                 data={messages}
                 contentContainerStyle={{ flexDirection: 'column-reverse' }}
-                renderItem={({ item: message, index }) => {
+                renderItem={({ item: message }) => {
                     return (
                         <MessageBallon
                             formatedDate={parseDate(message.createdAt)}
