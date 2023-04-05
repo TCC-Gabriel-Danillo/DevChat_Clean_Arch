@@ -23,16 +23,16 @@ export function UsersContextProvider({ children, usersService, tech }: Props){
     
     const { user } = useAuth()
     
-    const { isLoading: isLoadingUsers, data: users } = useQuery(
-        ['users', user?.id], 
+    const { isLoading: isLoadingUsers, data: users = [], isFetching } = useQuery(
+        ['users', tech], 
         () => usersService.listUsersByTech(tech), 
-        { enabled: !!user, initialData: [] }
+        { staleTime: 30000 }
     )
 
     const usersWithoutLoggedUser = useMemo(() => users.filter(_user => _user.id !== user?.id), [user, users])
 
     return(
-        <UsersContext.Provider value={{ users: usersWithoutLoggedUser, isLoadingUsers, tech }}>
+        <UsersContext.Provider value={{ users: usersWithoutLoggedUser, isLoadingUsers: isLoadingUsers || isFetching, tech }}>
             {children}
         </UsersContext.Provider>
     )
